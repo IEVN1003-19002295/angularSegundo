@@ -116,3 +116,6 @@ export default class ZodiacoComponent {
     };
   }
 }
+
+/*
+<!-- Texto para el commit --> */
