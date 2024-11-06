@@ -121,3 +121,5 @@ export default class EmpleadosComponent implements OnInit {
         return this.personas.reduce((total, persona) => total + (persona.subTotal || 0), 0);
     }
 }
+
+// Commit Empleados
