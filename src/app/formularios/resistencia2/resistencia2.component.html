@@ -1,0 +1,99 @@
+<div className="grid grid-cols-1 grid-rows-2 gap-4">
+  <div>
+      <div class="max-w-lg mx-auto p-6 bg-white shadow-md rounded-lg">
+          <h1 class="text-xl font-bold mb-6 text-gray-800">Cálculo de Ohms</h1>
+          <div [formGroup]="valoresResistencia">
+              <div class="mb-4">
+                  <label for="resDecimal" class="block text-sm font-medium text-gray-700">Color de la primera Banda:</label>
+                  <select formControlName="resDecimal" id="resDecimal" class="block w-full mt-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 p-2">
+                      <option value="0">Negro</option>
+                      <option value="1">Café</option>
+                      <option value="2">Rojo</option>
+                      <option value="3">Naranja</option>
+                      <option value="4">Amarillo</option>
+                      <option value="5">Verde</option>
+                      <option value="6">Azul</option>
+                      <option value="7">Violeta</option>
+                      <option value="8">Gris</option>
+                      <option value="9">Blanco</option>
+                  </select>
+              </div>
+              <div class="mb-4">
+                  <label for="resUnitaria" class="block text-sm font-medium text-gray-700">Color de la segunda Banda:</label>
+                  <select formControlName="resUnitaria" id="resUnitaria" class="block w-full mt-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 p-2">
+                      <option value="0">Negro</option>
+                      <option value="1">Café</option>
+                      <option value="2">Rojo</option>
+                      <option value="3">Naranja</option>
+                      <option value="4">Amarillo</option>
+                      <option value="5">Verde</option>
+                      <option value="6">Azul</option>
+                      <option value="7">Violeta</option>
+                      <option value="8">Gris</option>
+                      <option value="9">Blanco</option>
+                  </select>
+              </div>
+              <div class="mb-4">
+                  <label for="resMultiplicador" class="block text-sm font-medium text-gray-700">Color de la tercera Banda:</label>
+                  <select formControlName="resMultiplicador" id="resMultiplicador" class="block w-full mt-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 p-2">
+                      <option value="0">Negro</option>
+                      <option value="1">Café</option>
+                      <option value="2">Rojo</option>
+                      <option value="3">Naranja</option>
+                      <option value="4">Amarillo</option>
+                      <option value="5">Verde</option>
+                      <option value="6">Azul</option>
+                      <option value="7">Violeta</option>
+                      <option value="8">Gris</option>
+                      <option value="9">Blanco</option>
+                  </select>
+              </div>
+              <div class="mb-4">
+                  <label class="block text-sm font-medium text-gray-700">Tolerancia:</label>
+                  <div class="flex space-x-4 mt-2">
+                      <label class="flex items-center">
+                          <input type="radio" formControlName="tipoTolerancia" value="oro" class="form-radio h-4 w-4 text-indigo-600">
+                          <span class="ml-2">Oro</span>
+                      </label>
+                      <label class="flex items-center">
+                          <input type="radio" formControlName="tipoTolerancia" value="plata" class="form-radio h-4 w-4 text-indigo-600">
+                          <span class="ml-2">Plata</span>
+                      </label>
+                  </div>
+              </div>
+              <button [disabled]="!valoresResistencia.valid" (click)="onSubmit()" class="w-full bg-indigo-600 text-white font-semibold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50 disabled:opacity-50 disabled:cursor-not-allowed">Guardar Resistencia</button>
+          </div>
+      </div>
+  </div>
+  <div className="row-start-2">
+      <button (click)="mostrarTabla()" class="w-full bg-indigo-600 text-white font-semibold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50">Mostrar Tabla</button>
+      <div *ngIf="mostrarInfo" class="mt-6 bg-gray-50 border border-gray-300 rounded-lg p-4">
+          <table class="min-w-full table-auto">
+              <thead>
+                  <tr class="bg-gray-200">
+                      <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Banda 1</th>
+                      <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Banda 2</th>
+                      <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Banda 3</th>
+                      <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Tolerancia</th>
+                      <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Total</th>
+                      <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Mínimo</th>
+                      <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Máximo</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let resistencia of resistenciasGuardadas">
+                      <td [ngStyle]="{'background-color': resistencia.banda1}" class="px-4 py-2"></td>
+                      <td [ngStyle]="{'background-color': resistencia.banda2}" class="px-4 py-2"></td>
+                      <td [ngStyle]="{'background-color': resistencia.banda3}" class="px-4 py-2"></td>
+                      <td [ngStyle]="{'background-color': resistencia.tolerancia}" class="px-4 py-2"></td>
+                      <td class="px-4 py-2">{{ resistencia.total }}</td>
+                      <td class="px-4 py-2">{{ resistencia.minima }}</td>
+                      <td class="px-4 py-2">{{ resistencia.maxima }}</td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+  </div>
+</div>
+
+<!-- Commit Resistencia -->
